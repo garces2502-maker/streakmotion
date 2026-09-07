@@ -1195,64 +1195,382 @@ body {
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN (TABLET & MOBILE)
+   CUSTOM GRID UTILITIES & FORMS
    ========================================================= */
+.divisions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+}
+
+.arsenal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN (DESKTOP, TABLET & MOBILE OVERHAUL)
+   ========================================================= */
+
 @media (max-width: 1024px) {
     .streak-menu {
-        display: none;
+        display: none !important;
     }
     
     .streak-mobile-toggle {
-        display: inline-flex;
+        display: inline-flex !important;
     }
 
     .booking-grid-wrapper {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .design-steps-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .footer-top-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .divisions-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+
+    .arsenal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative;
+    }
+
+    .streak-container {
+        padding: 0 1.15rem !important;
+    }
+
+    /* Navbar on Mobile */
+    .streak-nav {
+        padding: 0.6rem 0.9rem !important;
+        gap: 0.5rem !important;
+    }
+
+    .streak-logo-img {
+        height: 32px !important;
+    }
+
+    .streak-brand-sub {
+        display: none !important;
+    }
+
+    .streak-brand-role {
+        font-size: 0.6rem !important;
+    }
+
+    .streak-ig-nav-btn {
+        display: none !important;
+    }
+
+    .streak-nav-actions .btn-streak-ghost,
+    .streak-nav-actions .btn-streak-primary {
+        display: none !important;
+    }
+
+    #themeToggleBtn {
+        padding: 0.45rem 0.65rem !important;
+    }
+
+    #themeToggleText {
+        display: none !important;
+    }
+
+    /* Divisions & Arsenal */
+    .divisions-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
+
+    .arsenal-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .project-card {
+        padding: 1.5rem 1.25rem !important;
+    }
+
+    /* Portfolio */
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Briefing Dock */
+    .brief-summary-dock {
+        padding: 1.35rem 1.15rem !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1.25rem !important;
+    }
+
+    .summary-telemetry-col {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .summary-actions-col {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
     }
 }
 
 @media (max-width: 640px) {
+    .streak-section {
+        padding: 3.5rem 0 !important;
+    }
+
+    /* Hero */
+    .streak-hero {
+        padding: 3rem 0 2.5rem !important;
+    }
+
+    .hero-top-badges {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+
+    .hero-pill-badge {
+        font-size: 0.64rem !important;
+        padding: 6px 12px !important;
+        letter-spacing: 0.04em !important;
+        white-space: normal !important;
+        text-align: center !important;
+        line-height: 1.35 !important;
+        max-width: 100% !important;
+    }
+
+    .hero-ig-badge {
+        font-size: 0.68rem !important;
+        padding: 5px 12px !important;
+        max-width: 100% !important;
+    }
+
     .hero-brand-logo {
-        max-width: 320px;
+        max-width: 270px !important;
     }
 
     .hero-brand-subtitle {
-        font-size: 1.25rem;
+        font-size: 1.15rem !important;
+        line-height: 1.25 !important;
+        padding: 0 0.5rem;
+    }
+
+    .hero-lead-desc {
+        font-size: 0.88rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 2rem !important;
+        padding: 0 0.5rem !important;
     }
 
     .hero-cta-group {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.75rem;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.65rem !important;
+        margin-bottom: 2.5rem !important;
     }
 
     .hero-cta-group > * {
-        width: 100%;
-        justify-content: center;
+        width: 100% !important;
+        justify-content: center !important;
     }
 
     .hero-stats-dock {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.65rem !important;
     }
 
-    .portfolio-grid {
-        grid-template-columns: 1fr;
+    .stat-pill-card {
+        padding: 0.9rem 0.65rem !important;
     }
 
+    .stat-val {
+        font-size: 1.6rem !important;
+    }
+
+    .stat-label {
+        font-size: 0.65rem !important;
+    }
+
+    /* Headers */
+    .section-head {
+        margin-bottom: 1.75rem !important;
+    }
+
+    .section-title {
+        font-size: 1.5rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .section-desc {
+        font-size: 0.82rem !important;
+    }
+
+    /* Calendar & Booking */
+    .calendar-card, .booking-form-card {
+        padding: 1.25rem 0.9rem !important;
+        border-radius: 1.15rem !important;
+    }
+
+    .cal-nav-row {
+        margin-bottom: 1rem !important;
+    }
+
+    .cal-month-title {
+        font-size: 1.1rem !important;
+    }
+
+    .cal-days-header {
+        font-size: 0.65rem !important;
+    }
+
+    .cal-days-grid {
+        gap: 4px !important;
+    }
+
+    .cal-day-cell {
+        font-size: 0.75rem !important;
+        border-radius: 0.5rem !important;
+    }
+
+    .cal-legend-row {
+        flex-wrap: wrap !important;
+        gap: 0.65rem !important;
+        font-size: 0.65rem !important;
+    }
+
+    /* Design Brief Lab */
+    .design-lab-wrapper {
+        padding: 1.25rem 0.85rem !important;
+        border-radius: 1.15rem !important;
+    }
+
+    .brief-accordion-header {
+        padding: 1rem 0.85rem !important;
+    }
+
+    .accordion-header-left {
+        gap: 0.65rem !important;
+    }
+
+    .accordion-num-badge {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .accordion-step-tag {
+        font-size: 0.58rem !important;
+    }
+
+    .accordion-title {
+        font-size: 0.92rem !important;
+        line-height: 1.25 !important;
+    }
+
+    .accordion-live-pill {
+        font-size: 0.62rem !important;
+        padding: 2px 8px !important;
+        white-space: normal !important;
+    }
+
+    .accordion-toggle-label {
+        display: none !important;
+    }
+
+    .accordion-inner-content {
+        padding-top: 1rem !important;
+    }
+
+    .option-chips-container {
+        gap: 0.45rem !important;
+    }
+
+    .chip-option {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.74rem !important;
+        border-radius: 0.65rem !important;
+    }
+
+    .summary-brand-title {
+        font-size: 1.25rem !important;
+    }
+
+    .btn-generate-pdf {
+        font-size: 0.85rem !important;
+        padding: 0.9rem 1.2rem !important;
+    }
+
+    /* Footer */
     .footer-top-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
     }
 
-    .streak-nav-actions .btn-streak-ghost {
-        display: none;
+    .footer-bottom-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* Floating Widget */
+    .streak-ig-floating-widget {
+        bottom: 14px !important;
+        right: 14px !important;
+        padding: 7px 12px !important;
+        font-size: 0.72rem !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .hero-brand-logo {
+        max-width: 220px !important;
+    }
+
+    .hero-brand-subtitle {
+        font-size: 1.05rem !important;
+    }
+
+    .stat-val {
+        font-size: 1.45rem !important;
+    }
+
+    .cal-day-cell {
+        font-size: 0.7rem !important;
+    }
+
+    .chip-option {
+        font-size: 0.7rem !important;
+        padding: 0.45rem 0.65rem !important;
     }
 }
 
