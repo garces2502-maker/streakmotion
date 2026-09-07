@@ -91,20 +91,26 @@ body {
    HEADER & NAVIGATION BAR (DYNAMIC STICKY SCROLL & HOVER)
    ========================================================= */
 .streak-header {
-    position: sticky;
-    top: 0.75rem;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 0.5rem 0;
+    padding: 0.75rem 1.5rem;
     z-index: 1000;
-    transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .streak-nav {
+    max-width: 1360px;
+    margin: 0 auto;
+    width: 100%;
+    pointer-events: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background: rgba(10, 16, 36, 0.78);
+    background: rgba(10, 16, 36, 0.85);
     border: 1px solid var(--streak-card-border);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -116,7 +122,7 @@ body {
 
 /* Scrolled state: becomes more transparent so it does not block content underneath */
 .streak-header.scrolled {
-    padding: 0.25rem 0;
+    padding-top: 0.4rem;
 }
 
 .streak-header.scrolled .streak-nav {
@@ -316,6 +322,11 @@ body.streak-light-mode .streak-header:hover .streak-nav {
     border-radius: 1.25rem;
     backdrop-filter: blur(24px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
+    max-width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .streak-mobile-drawer.open {
@@ -326,7 +337,7 @@ body.streak-light-mode .streak-header:hover .streak-nav {
    HERO SECTION MONUMENTAL
    ========================================================= */
 .streak-hero {
-    padding: 5rem 0 4rem;
+    padding: 6.5rem 0 4rem;
     text-align: center;
     position: relative;
 }
@@ -1310,6 +1321,14 @@ body.streak-light-mode .streak-header:hover .streak-nav {
     }
 
     /* Navbar on Mobile */
+    .streak-header {
+        padding: 0.5rem 0.85rem !important;
+    }
+
+    .streak-hero {
+        padding: 5.5rem 0 2.5rem !important;
+    }
+
     .streak-nav {
         padding: 0.6rem 0.9rem !important;
         gap: 0.5rem !important;

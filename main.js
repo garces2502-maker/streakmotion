@@ -1833,7 +1833,8 @@ function initStickyHeader() {
     const onScroll = () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                if (window.scrollY > 35) {
+                const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (scrollPos > 30) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
@@ -1845,6 +1846,8 @@ function initStickyHeader() {
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 }
 
