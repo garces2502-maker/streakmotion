@@ -88,13 +88,15 @@ body {
 }
 
 /* =========================================================
-   HEADER & NAVIGATION BAR
+   HEADER & NAVIGATION BAR (DYNAMIC STICKY SCROLL & HOVER)
    ========================================================= */
 .streak-header {
-    position: relative;
+    position: sticky;
+    top: 0.75rem;
     width: 100%;
-    padding: 1.25rem 0;
-    z-index: 50;
+    padding: 0.5rem 0;
+    z-index: 1000;
+    transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .streak-nav {
@@ -102,13 +104,59 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background: rgba(10, 16, 36, 0.75);
+    background: rgba(10, 16, 36, 0.78);
     border: 1px solid var(--streak-card-border);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 1.25rem;
     padding: 0.75rem 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 102, 255, 0.08);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrolled state: becomes more transparent so it does not block content underneath */
+.streak-header.scrolled {
+    padding: 0.25rem 0;
+}
+
+.streak-header.scrolled .streak-nav {
+    background: rgba(10, 16, 36, 0.32);
+    border-color: rgba(0, 102, 255, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.82;
+}
+
+/* Hover state while scrolled: becomes solid, vivid and crystal clear */
+.streak-header.scrolled:hover .streak-nav,
+.streak-header:hover .streak-nav {
+    background: rgba(10, 16, 36, 0.95);
+    border-color: rgba(0, 102, 255, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 102, 255, 0.2);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    opacity: 1;
+}
+
+/* Light mode dynamic transparency and hover */
+body.streak-light-mode .streak-header.scrolled .streak-nav {
+    background: rgba(255, 255, 255, 0.42);
+    border-color: rgba(0, 102, 255, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.85;
+}
+
+body.streak-light-mode .streak-header.scrolled:hover .streak-nav,
+body.streak-light-mode .streak-header:hover .streak-nav {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 102, 255, 0.35);
+    box-shadow: 0 12px 35px rgba(0, 102, 255, 0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    opacity: 1;
 }
 
 .streak-brand-link {
