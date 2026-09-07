@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initThemeController();
+    initStickyHeader();
     initLightStreaksCanvas();
     initBookingCalendar();
     initBrandBriefingLab();
@@ -410,6 +411,17 @@ function handleBookingSubmit() {
     const ticketCode = 'STRK-ROD-' + Math.floor(1000 + Math.random() * 9000);
 
     const confirmationMsg = `🎬 SOLICITUD DE RODAJE STREAK [${ticketCode}]\nCliente: ${client}\nServicio: ${service}\nFecha: ${date}\nJornada: ${shift}\nLocación: ${location}\nEmail: ${email}`;
+
+    // Dispatch background email
+    sendBookingAutoEmail({
+        code: ticketCode,
+        client,
+        email,
+        service,
+        date,
+        shift,
+        location
+    });
 
     // Show feedback toast
     showToast(`¡Reserva registrada con éxito! Código: ${ticketCode}`, 'fa-circle-check');
@@ -1415,6 +1427,9 @@ function handleBriefSubmit(e) {
 
         const fileName = generateBriefPdf(currentBrief);
 
+        // Auto-deliver brief details to contact@streakmotion.com
+        sendBriefAutoEmail(currentBrief);
+
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Generar Brief Oficial & Descargar PDF';
@@ -1803,6 +1818,127 @@ function copyToClipboard(text) {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
+    }
+}
+
+/* =========================================================
+   8. DYNAMIC STICKY HEADER CONTROLLER
+   ========================================================= */
+function initStickyHeader() {
+    const header = document.querySelector('.streak-header');
+    if (!header) return;
+
+    let ticking = false;
+
+    const onScroll = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 35) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+}
+
+/* =========================================================
+   9. AUTOMATIC EMAIL NOTIFICATION ENGINE (WEB3FORMS)
+   ========================================================= */
+let STREAK_WEB3FORMS_KEY = localStorage.getItem('streak_web3forms_key') || 'YOUR_ACCESS_KEY_HERE';
+
+window.setWeb3FormsKey = function(key) {
+    STREAK_WEB3FORMS_KEY = key;
+    localStorage.setItem('streak_web3forms_key', key);
+    showToast('Clave de envío configurada con éxito', 'fa-key');
+};
+
+async function sendBriefAutoEmail(b) {
+    if (!STREAK_WEB3FORMS_KEY || STREAK_WEB3FORMS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        console.info('Aviso: Web3Forms Access Key no configurada aún. El brief se guardó localmente y se generó el PDF.');
+        return;
+    }
+
+    try {
+        const payload = {
+            access_key: STREAK_WEB3FORMS_KEY,
+            subject: `⚡ [NUEVO BRIEF STREAK] #${b.code} - ${b.brandName}`,
+            from_name: 'STREAK STUDIOS ENGINE',
+            replyto: b.contactEmail || 'contact@streakmotion.com',
+            '01_CODIGO_SOLICITUD': b.code,
+            '02_MARCA_PROYECTO': b.brandName,
+            '03_TAGLINE_SLOGAN': b.tagline || 'N/A',
+            '04_SECTOR_INDUSTRIA': b.industry,
+            '05_ENTREGABLE': b.deliverable,
+            '06_ESTILO_VISUAL': b.vibe,
+            '07_PALETA_COLOR': b.color,
+            '08_TIPOGRAFIA': b.typography,
+            '09_EXCLUSIONES': b.exclusions || 'Ninguno',
+            '10_DONDE_VIVIRA': (b.applications && b.applications.length > 0) ? b.applications.join(', ') : 'Digital General',
+            '11_AUDIENCIA': b.audience,
+            '12_PRESUPUESTO': b.budget,
+            '13_PLAZO_ENTREGA': b.deadline,
+            '14_CONTACTO_CLIENTE': b.contactName,
+            '15_EMAIL_CLIENTE': b.contactEmail,
+            '16_TELEFONO_CLIENTE': b.contactPhone,
+            '17_NOTAS_PRODUCCION': b.notes || 'Sin notas adicionales',
+            '18_REFERENCIAS_MOODBOARD': b.refsLink || 'N/A',
+            '19_FECHA_REGISTRO': b.date
+        };
+
+        const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            console.log('✅ Brief auto-entregado a contact@streakmotion.com');
+            showToast('Brief enviado automáticamente a contact@streakmotion.com', 'fa-paper-plane');
+        }
+    } catch (e) {
+        console.warn('Error enviando brief automático:', e);
+    }
+}
+
+async function sendBookingAutoEmail(data) {
+    if (!STREAK_WEB3FORMS_KEY || STREAK_WEB3FORMS_KEY === 'YOUR_ACCESS_KEY_HERE') return;
+
+    try {
+        const payload = {
+            access_key: STREAK_WEB3FORMS_KEY,
+            subject: `🎬 [NUEVA RESERVA RODAJE] #${data.code} - ${data.client}`,
+            from_name: 'STREAK BOOKING ENGINE',
+            replyto: data.email || 'contact@streakmotion.com',
+            '01_CODIGO_RESERVA': data.code,
+            '02_CLIENTE_ARTISTA': data.client,
+            '03_EMAIL_CLIENTE': data.email,
+            '04_SERVICIO_SOLICITADO': data.service,
+            '05_FECHA_RODAJE': data.date,
+            '06_JORNADA_TURNO': data.shift,
+            '07_LOCACION': data.location
+        };
+
+        await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+    } catch (e) {
+        console.warn('Error enviando reserva automática:', e);
     }
 }
 
