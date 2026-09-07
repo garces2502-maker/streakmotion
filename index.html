@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREAK • Productora Audiovisual & Estudio de Diseño Gráfico</title>
+    
+    <!-- Meta SEO & Open Graph -->
+    <meta name="description" content="STREAK • Productora Audiovisual y Estudio de Diseño Gráfico. Cinematografía para la industria musical internacional, videoclips, dirección de arte, diseño de marcas y reservas de rodajes.">
+    <meta name="author" content="STREAK Studios">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- STREAK Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="streak-light-mode">
+
+    <!-- Cosmic Light Streaks Canvas -->
+    <canvas id="streakCanvas"></canvas>
+
+    <!-- Toast Notification System -->
+    <div id="streakToast">
+        <i id="streakToastIcon" class="fa-solid fa-circle-check text-cyan text-lg"></i>
+        <span id="streakToastMsg" style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: #FFFFFF;">Acción completada</span>
+    </div>
+
+    <!-- Video Modal / Showreel Player -->
+    <div id="streakModal" class="streak-modal-backdrop">
+        <div class="streak-modal-dialog">
+            <div class="modal-header-bar">
+                <div class="modal-title" id="streakModalTitle">STREAK // SHOWREEL OFICIAL 2026</div>
+                <button onclick="closeVideoModal()" class="modal-close-btn" aria-label="Cerrar modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="video-container-ratio" id="streakModalVideoContainer">
+                <!-- Video or Iframe injected via JS -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Main Outer Container -->
+    <div class="streak-container">
+
+        <!-- ==========================================
+             HEADER & NAVIGATION
+             ========================================== -->
+        <header class="streak-header">
+            <nav class="streak-nav">
+                <!-- Brand Identity -->
+                <a href="#hero" class="streak-brand-link">
+                    <img src="assets/streak-logo.svg" alt="STREAK Logo" id="streakLogoImg" class="streak-logo-img">
+                    <div class="streak-brand-meta">
+                        <span class="streak-brand-role">ESTUDIO & PRODUCTORA</span>
+                        <span class="streak-brand-sub">Audiovisual & Diseño Gráfico</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Menu -->
+                <div class="streak-menu">
+                    <a href="#manifiesto" class="streak-nav-link">
+                        <i class="fa-solid fa-shield-halved"></i> 01. Manifiesto
+                    </a>
+                    <a href="#capacidades" class="streak-nav-link">
+                        <i class="fa-solid fa-cubes"></i> 02. Arsenal Técnico
+                    </a>
+                    <a href="#reservas" class="streak-nav-link">
+                        <i class="fa-solid fa-calendar-check"></i> 03. Reservar Rodaje
+                    </a>
+                    <a href="#diseno" class="streak-nav-link">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 04. Briefing Brand & Logo
+                    </a>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="streak-nav-actions">
+                    <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="streak-ig-nav-btn" title="Instagram Oficial @studio_streak">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@studio_streak</span>
+                        <span class="ig-pulse-dot" title="En Directo"></span>
+                    </a>
+                    <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Cambiar tema visual" title="Alternar entre Blanco Editorial y Modo Midnight">
+                        <i id="themeToggleIcon" class="fa-solid fa-moon"></i>
+                        <span id="themeToggleText">Midnight</span>
+                    </button>
+                    <button onclick="openVideoModal('STREAK // SHOWREEL CINEMATOGRÁFICO 2026', 'https://www.youtube.com/embed/dQw4w9WgXcQ')" class="btn-streak-ghost">
+                        <i class="fa-solid fa-play" style="color: var(--streak-cyan);"></i> Showreel
+                    </button>
+                    <a href="#reservas" class="btn-streak-primary">
+                        <i class="fa-solid fa-calendar-days"></i> Agendar
+                    </a>
+                    <button class="streak-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Abrir Menú">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Navigation Drawer -->
+            <div id="streakMobileDrawer" class="streak-mobile-drawer">
+                <a href="#manifiesto" onclick="closeMobileMenu()" class="streak-nav-link">
+                    <i class="fa-solid fa-shield-halved"></i> 01. Manifiesto & Visión
+                </a>
+                <a href="#capacidades" onclick="closeMobileMenu()" class="streak-nav-link">
+                    <i class="fa-solid fa-cubes"></i> 02. Arsenal Técnico
+                </a>
+                <a href="#reservas" onclick="closeMobileMenu()" class="streak-nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> 03. Calendario de Reservas
+                </a>
+                <a href="#diseno" onclick="closeMobileMenu()" class="streak-nav-link">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 04. Briefing Brand & Logo
+                </a>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                    <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="streak-ig-nav-btn" style="flex: 1; justify-content: center;">
+                        <i class="fa-brands fa-instagram"></i> @studio_streak
+                    </a>
+                    <button class="theme-toggle-btn" onclick="toggleTheme(); closeMobileMenu();" style="flex: 1; justify-content: center;">
+                        <i class="fa-solid fa-circle-half-stroke"></i> Cambiar Tema
+                    </button>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                    <a href="#reservas" onclick="closeMobileMenu()" class="btn-streak-primary" style="flex: 1; justify-content: center;">
+                        <i class="fa-solid fa-calendar-days"></i> Reservar
+                    </a>
+                    <a href="#diseno" onclick="closeMobileMenu()" class="btn-streak-ghost" style="flex: 1; justify-content: center;">
+                        Brief Brand & Logo
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==========================================
+             HERO SECTION MONUMENTAL
+             ========================================== -->
+        <section id="hero" class="streak-hero">
+            <div class="hero-top-badges">
+                <div class="hero-pill-badge">
+                    <i class="fa-solid fa-bolt"></i> PRODUCTORA AUDIOVISUAL & ESTUDIO DE DISEÑO GRÁFICO
+                </div>
+                <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="hero-ig-badge">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram Oficial: <strong>@studio_streak</strong></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.65rem; opacity: 0.85;"></i>
+                </a>
+            </div>
+
+            <!-- Brand Logo Centerpiece -->
+            <div class="hero-logo-container">
+                <img src="assets/streak-logo.svg" alt="STREAK Productora Audiovisual & Estudio de Diseño Gráfico" id="heroStreakLogo" class="hero-brand-logo">
+            </div>
+
+            <!-- Subtitle -->
+            <h1 class="hero-brand-subtitle">
+                Productora Audiovisual & Estudio de Diseño Gráfico
+            </h1>
+
+            <p class="hero-lead-desc">
+                Cinematografía 4K de gran formato, videoclips oficiales, dirección de arte discográfica y modelado 3D Liquid Chrome para los mayores exponentes de la música internacional.
+            </p>
+
+            <!-- Call to Action Buttons -->
+            <div class="hero-cta-group">
+                <a href="#reservas" class="btn-streak-primary hero-btn-main">
+                    <i class="fa-solid fa-calendar-check"></i> Reservar Fecha de Rodaje
+                </a>
+                <a href="#diseno" class="btn-streak-ghost hero-btn-sub">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--streak-cyan);"></i> Briefing Brand & Logo (PDF)
+                </a>
+                <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="streak-ig-nav-btn hero-btn-ig">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@studio_streak</span>
+                    <span class="ig-pulse-dot"></span>
+                </a>
+                <button onclick="openVideoModal('STREAK // SHOWREEL OFICIAL 2026', 'https://www.youtube.com/embed/dQw4w9WgXcQ')" class="btn-streak-ghost hero-btn-reel">
+                    <i class="fa-solid fa-play" style="color: var(--streak-cyan);"></i> Ver Showreel
+                </button>
+            </div>
+
+            <!-- Stats Dock -->
+            <div class="hero-stats-dock">
+                <div class="stat-pill-card">
+                    <div class="stat-val">+150M</div>
+                    <div class="stat-label">Streams & Audiencia Global</div>
+                </div>
+                <div class="stat-pill-card">
+                    <div class="stat-val">#1 USA</div>
+                    <div class="stat-label">monitorLATINO Airplay</div>
+                </div>
+                <div class="stat-pill-card">
+                    <div class="stat-val">4K CINE</div>
+                    <div class="stat-label">Cámaras & Ópticas Anamórficas</div>
+                </div>
+                <div class="stat-pill-card">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-label">Dirección Integral & Diseño</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 01: MANIFIESTO & ECOSISTEMA DUAL
+             ========================================== -->
+        <section id="manifiesto" class="streak-section">
+            <div class="section-head">
+                <div>
+                    <div class="section-meta-tag">
+                        <i class="fa-solid fa-shield-halved"></i> SECT_01 // MANIFIESTO & VISIÓN
+                    </div>
+                    <h2 class="section-title">La Fusión Definitiva: Productora Audiovisual & Estudio de Diseño Gráfico</h2>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem;">
+                <div class="project-card" style="padding: 2.25rem;">
+                    <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(0, 102, 255, 0.18); border: 1px solid var(--streak-blue); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--streak-cyan); margin-bottom: 1.25rem;">
+                        <i class="fa-solid fa-clapperboard"></i>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--streak-cyan); letter-spacing: 0.1em; text-transform: uppercase;">
+                        DIVISIÓN 01
+                    </div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem; font-weight: 900; color: var(--text-pure); margin: 0.4rem 0 0.85rem;">
+                        Productora Audiovisual Cinematográfica
+                    </h3>
+                    <p style="font-size: 0.86rem; color: var(--text-silver); line-height: 1.65; margin-bottom: 1.25rem;">
+                        Desplegamos equipos de producción cinematográfica completos para videoclips de artistas de primer nivel, spots comerciales de gran formato y cobertura multicámara de festivales internacionales, con dirección de fotografía 4K, ópticas anamórficas y postproducción de color de vanguardia.
+                    </p>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-silver);">
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Dirección de Fotografía & Cámaras Cine 4K</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Scouting & Producción Internacional</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Edición, Color Grading & Master Cinematográfico</li>
+                    </ul>
+                </div>
+
+                <div class="project-card" style="padding: 2.25rem;">
+                    <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(0, 210, 255, 0.15); border: 1px solid var(--streak-cyan); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--streak-cyan); margin-bottom: 1.25rem;">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--streak-cyan); letter-spacing: 0.1em; text-transform: uppercase;">
+                        DIVISIÓN 02
+                    </div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem; font-weight: 900; color: var(--text-pure); margin: 0.4rem 0 0.85rem;">
+                        Estudio de Diseño Gráfico & Identidad Visual
+                    </h3>
+                    <p style="font-size: 0.86rem; color: var(--text-silver); line-height: 1.65; margin-bottom: 1.25rem;">
+                        Ideamos la identidad visual primaria para sellos discográficos internacionales (Sony Music, Dim Mak, Warner Music y sellos independientes de primer nivel). Modelado 3D de tipografías monumentales en cromo fundido (Liquid Chrome), Motion Graphics reactivo a BPM y drop electrónico, y Key Art cinematográfico para plataformas líderes como <strong>ViX y Prime Video</strong>.
+                    </p>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-silver);">
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Portadas Oficiales de Álbumes & Singles (Cover Art)</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Modelado 3D CGI & Simulación de Metales Líquidos</li>
+                        <li><i class="fa-solid fa-check" style="color: var(--streak-cyan); margin-right: 6px;"></i> Lyric Videos Reactivos en After Effects & Cinema 4D</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 02: CAPACIDADES & ARSENAL TÉCNICO
+             ========================================== -->
+        <section id="capacidades" class="streak-section">
+            <div class="section-head">
+                <div>
+                    <div class="section-meta-tag">
+                        <i class="fa-solid fa-microchip"></i> SECT_02 // ARSENAL TÉCNICO
+                    </div>
+                    <h2 class="section-title">Infraestructura de Producción & Software</h2>
+                    <p class="section-desc">
+                        Estándares de la industria cinematográfica y flujos de trabajo computacionales de última generación.
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                <div class="stat-pill-card" style="text-align: left; padding: 1.75rem;">
+                    <div style="color: var(--streak-cyan); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-video"></i></div>
+                    <h4 style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-pure); font-weight: 800;">Cámaras & Ópticas</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-silver); margin-top: 0.5rem; line-height: 1.6;">
+                        Sistemas de sensor full frame ARRI Alexa Mini LF y RED Digital Cinema 4K. Set de lentes anamórficos y cinema primes de alta resolución.
+                    </p>
+                </div>
+
+                <div class="stat-pill-card" style="text-align: left; padding: 1.75rem;">
+                    <div style="color: var(--streak-cyan); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-pen-nib"></i></div>
+                    <h4 style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-pure); font-weight: 800;">Diseño Gráfico & Brand Identity</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-silver); margin-top: 0.5rem; line-height: 1.6;">
+                        Dirección de arte integral, diseño editorial de portadas discográficas, tipografía experimental, identidad de marca y render CGI.
+                    </p>
+                </div>
+
+                <div class="stat-pill-card" style="text-align: left; padding: 1.75rem;">
+                    <div style="color: var(--streak-cyan); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-bolt"></i></div>
+                    <h4 style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-pure); font-weight: 800;">Iluminación & Grip</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-silver); margin-top: 0.5rem; line-height: 1.6;">
+                        Sistemas LED Aputure Electro Storm y Nanlite Forza. Drones FPV de alta velocidad para tomas de persecución cinematográfica.
+                    </p>
+                </div>
+
+                <div class="stat-pill-card" style="text-align: left; padding: 1.75rem;">
+                    <div style="color: var(--streak-cyan); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h4 style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-pure); font-weight: 800;">Postproducción & IA</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-silver); margin-top: 0.5rem; line-height: 1.6;">
+                        DaVinci Resolve Studio para color grading con monitoreo calibrado HDR. Flujos híbridos con ComfyUI y aceleración por Inteligencia Artificial.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 03: CALENDARIO DE RESERVAS DE FECHAS
+             ========================================== -->
+        <section id="reservas" class="streak-section">
+            <div class="section-head">
+                <div>
+                    <div class="section-meta-tag">
+                        <i class="fa-solid fa-calendar-days"></i> SECT_03 // BOOKING & DISPONIBILIDAD
+                    </div>
+                    <h2 class="section-title">Calendario de Reserva para Rodajes</h2>
+                    <p class="section-desc">
+                        Selecciona tu fecha en el calendario interactivo y reserva con antelación las jornadas de rodaje para videoclips, comerciales o coberturas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="booking-grid-wrapper">
+                <!-- Calendar Component -->
+                <div class="calendar-card">
+                    <div class="cal-nav-row">
+                        <button id="calPrevBtn" class="cal-ctrl-btn" aria-label="Mes anterior">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <h3 id="calMonthTitle" class="cal-month-title">Octubre 2026</h3>
+                        <button id="calNextBtn" class="cal-ctrl-btn" aria-label="Mes siguiente">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="cal-days-header">
+                        <div>LUN</div>
+                        <div>MAR</div>
+                        <div>MIÉ</div>
+                        <div>JUE</div>
+                        <div>VIE</div>
+                        <div>SÁB</div>
+                        <div>DOM</div>
+                    </div>
+
+                    <div id="calDaysGrid" class="cal-days-grid">
+                        <!-- Rendered dynamically by JS -->
+                    </div>
+
+                    <div class="cal-legend-row">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--streak-blue);"></span>
+                            <span>Seleccionada</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--streak-cyan);"></span>
+                            <span>Disponibilidad Fast-Track</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: rgba(255, 255, 255, 0.2);"></span>
+                            <span>Ocupada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="booking-form-card">
+                    <h4>Detalles de la Reserva</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-silver); margin-bottom: 1.25rem;">
+                        Completa la información técnica del rodaje para verificar el crew y equipamiento disponible.
+                    </p>
+
+                    <div class="selected-date-badge">
+                        <div>
+                            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--streak-cyan); text-transform: uppercase;">Fecha Seleccionada:</span>
+                            <div id="selectedDateText" class="selected-date-val">18 de Octubre, 2026</div>
+                        </div>
+                        <i class="fa-solid fa-calendar-check" style="color: var(--streak-cyan); font-size: 1.35rem;"></i>
+                    </div>
+
+                    <form id="streakBookingForm">
+                        <input type="hidden" id="bookingSelectedDateInput" value="">
+
+                        <div class="form-group">
+                            <label class="form-label" for="bookingName">Artista / Cliente / Productora</label>
+                            <input type="text" id="bookingName" class="form-input" placeholder="Ej: Sony Music / Artista / Manager" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bookingEmail">Email de Contacto Directo</label>
+                            <input type="email" id="bookingEmail" class="form-input" placeholder="produccion@artista.com" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="bookingService">Tipo de Producción</label>
+                                <select id="bookingService" class="form-select">
+                                    <option value="Videoclip Oficial">Videoclip Oficial</option>
+                                    <option value="Matrimonios / Bodas de Lujo">Matrimonios & Bodas de Lujo</option>
+                                    <option value="Comercial / Spot Publicitario">Comercial / Spot</option>
+                                    <option value="Cobertura de Festival / Concierto">Festival / Concierto</option>
+                                    <option value="Documental & Scouting">Documental & Scouting</option>
+                                    <option value="Sesión Fotográfica & Visuales">Sesión Fotográfica</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="bookingShift">Jornada de Rodaje</label>
+                                <select id="bookingShift" class="form-select">
+                                    <option value="Jornada Completa (10 hrs)">Jornada Completa (10h)</option>
+                                    <option value="Media Jornada (5 hrs)">Media Jornada (5h)</option>
+                                    <option value="Rodaje Nocturno / Madrugada">Rodaje Nocturno</option>
+                                    <option value="Múltiples Días (Bloque)">Múltiples Días</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bookingLocation">Ciudad / Locación Prevista</label>
+                            <input type="text" id="bookingLocation" class="form-input" placeholder="Ej: Santiago / Miami / Locación Exterior" required>
+                        </div>
+
+                        <button type="submit" class="btn-streak-primary" style="width: 100%; justify-content: center; padding: 0.85rem;">
+                            <i class="fa-solid fa-paper-plane"></i> Confirmar Solicitud de Reserva
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 04: BRIEFING INTERACTIVO DE BRANDING & LOGOTIPO
+             ========================================== -->
+        <section id="diseno" class="streak-section">
+            <div class="section-head">
+                <div>
+                    <div class="section-meta-tag">
+                        <i class="fa-solid fa-file-pdf"></i> SECT_04 // BRIEFING LAB • BRAND & LOGO SUITE
+                    </div>
+                    <h2 class="section-title">Solicitud de Marca & Logotipo (Brief Inteligente)</h2>
+                    <p class="section-desc">
+                        Configura las indicaciones estratégicas para tu nuevo brand o logo. Nuestro sistema compilará automáticamente un <strong>PDF ejecutivo listo para revisión por correo y arranque de producción inmediata</strong> en STREAK STUDIOS.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Auto-Fill Presets Bar with Dropdown Selector -->
+            <div class="brief-preset-toolbar">
+                <div class="preset-label">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> PRESET DE SOLICITUD (AUTO-LLENADO):
+                </div>
+                <div class="preset-select-wrapper">
+                    <select id="briefPresetSelect" class="form-select-preset" onchange="applyBriefPreset(this.value)">
+                        <option value="urbano" selected>🔥 Artista / Música Urbana (KHALI MUSIC)</option>
+                        <option value="matrimonio">💍 Matrimonios & Bodas de Lujo (FRANCISCA & MATÍAS)</option>
+                        <option value="evento">🎪 Eventos & Festivales Masivos (HYPERFEST 2026)</option>
+                        <option value="streetwear">👕 Moda & Streetwear (HYPERVOID APPAREL)</option>
+                        <option value="label">💿 Sello Discográfico (VORTEX DISCOS)</option>
+                        <option value="productora">🎬 Productora Audiovisual (NEOMOTION CINE)</option>
+                        <option value="custom">⚡ Solicitud Personalizada (En Blanco)</option>
+                    </select>
+                </div>
+                <div class="preset-toolbar-actions">
+                    <button type="button" class="btn-preset-toggle" onclick="toggleAllAccordions(true)" title="Desplegar todos los pasos y ver todas las opciones">
+                        <i class="fa-solid fa-angles-down"></i> Desplegar Opciones
+                    </button>
+                    <button type="button" class="btn-preset-toggle" onclick="toggleAllAccordions(false)" title="Colapsar y dejar vista limpia">
+                        <i class="fa-solid fa-angles-up"></i> Colapsar
+                    </button>
+                    <button type="button" class="btn-preset-toggle btn-reset" onclick="resetBriefForm()" title="Limpiar y empezar desde cero">
+                        <i class="fa-solid fa-rotate-left"></i> Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- The Main Brand Brief Form with Collapsible Accordion Sections -->
+            <div class="design-lab-wrapper">
+                <form id="streakBrandBriefForm" onsubmit="handleBriefSubmit(event)">
+                    <div class="brief-accordions-wrapper">
+                        
+                        <!-- DESPLEGABLE 01: Identidad & Fundamentos del Proyecto -->
+                        <div class="brief-accordion-item open" id="briefAccordion1">
+                            <div class="brief-accordion-header" onclick="toggleAccordion('briefAccordion1')">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-num-badge">01</span>
+                                    <div>
+                                        <div class="accordion-step-tag">PASO 01 // IDENTIDAD & INDUSTRIA</div>
+                                        <div class="accordion-title-row">
+                                            <h3 class="accordion-title">Datos del Proyecto & Categoría</h3>
+                                            <span class="accordion-live-pill" id="badgeStep1">KHALI MUSIC • Música Urbana</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-header-right">
+                                    <span class="accordion-toggle-label">Opciones a marcar</span>
+                                    <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+                                </div>
+                            </div>
+
+                            <div class="brief-accordion-body">
+                                <div class="accordion-inner-content">
+                                    <div class="form-row-2" style="margin-bottom: 1rem;">
+                                        <div class="form-group-streak">
+                                            <label class="form-label-streak" for="briefBrandName" id="brandNameLabel">
+                                                Nombre Oficial de la Marca o Artista <span style="color: var(--streak-cyan);">*</span>
+                                            </label>
+                                            <input type="text" id="briefBrandName" class="form-input-streak" placeholder="Ej: STREAK / KHALI / HYPERVOID" value="KHALI MUSIC" required oninput="updateLiveSummary()">
+                                        </div>
+                                        <div class="form-group-streak">
+                                            <label class="form-label-streak" for="briefBrandTagline" id="brandTaglineLabel">
+                                                Slogan o Tagline (Opcional)
+                                            </label>
+                                            <input type="text" id="briefBrandTagline" class="form-input-streak" placeholder="Ej: Beyond Sound / World Tour 2026" value="World Tour & Records" oninput="updateLiveSummary()">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" style="margin-bottom: 0.5rem;">
+                                        Sector / Tipo de Evento a Marcar (Define las variables del proyecto):
+                                    </div>
+                                    <div class="option-chips-container" id="industryChips">
+                                        <div class="chip-option chip-industry active" data-category="urbano" data-value="Música Urbana / Trap / Reggaetón">
+                                            <i class="fa-solid fa-fire chip-icon"></i>
+                                            <span class="chip-label">Música Urbana / Trap</span>
+                                        </div>
+                                        <div class="chip-option chip-industry" data-category="matrimonio" data-value="Matrimonios & Bodas Exclusivas">
+                                            <i class="fa-solid fa-champagne-glasses chip-icon"></i>
+                                            <span class="chip-label">Matrimonios & Bodas</span>
+                                        </div>
+                                        <div class="chip-option chip-industry" data-category="evento" data-value="Eventos & Festival Masivo">
+                                            <i class="fa-solid fa-ticket chip-icon"></i>
+                                            <span class="chip-label">Festival / Eventos</span>
+                                        </div>
+                                        <div class="chip-option chip-industry" data-category="streetwear" data-value="Moda & Streetwear">
+                                            <i class="fa-solid fa-shirt chip-icon"></i>
+                                            <span class="chip-label">Moda & Streetwear</span>
+                                        </div>
+                                        <div class="chip-option chip-industry" data-category="label" data-value="Sello Discográfico & Management">
+                                            <i class="fa-solid fa-compact-disc chip-icon"></i>
+                                            <span class="chip-label">Sello Discográfico</span>
+                                        </div>
+                                        <div class="chip-option chip-industry" data-category="productora" data-value="Productora Audiovisual & Cine">
+                                            <i class="fa-solid fa-film chip-icon"></i>
+                                            <span class="chip-label">Productora / Cine</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" id="deliverableTitleLabel" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+                                        Tipo de Entregable Solicitado a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="deliverableChips">
+                                        <div class="chip-option chip-deliverable active" data-value="Nuevo Logotipo + Isotipo Principal">
+                                            <i class="fa-solid fa-signature chip-icon"></i>
+                                            <span class="chip-label">Nuevo Logotipo + Isotipo</span>
+                                        </div>
+                                        <div class="chip-option chip-deliverable" data-value="Rediseño / Rebranding Completo">
+                                            <i class="fa-solid fa-rotate chip-icon"></i>
+                                            <span class="chip-label">Rediseño / Rebranding</span>
+                                        </div>
+                                        <div class="chip-option chip-deliverable" data-value="Sistema de Identidad + Manual de Marca (Brandbook)">
+                                            <i class="fa-solid fa-book-bookmark chip-icon"></i>
+                                            <span class="chip-label">Identidad + Brandbook</span>
+                                        </div>
+                                        <div class="chip-option chip-deliverable" data-value="Logotipo 3D Liquid Chrome (Modelado CGI)">
+                                            <i class="fa-solid fa-cube chip-icon"></i>
+                                            <span class="chip-label">Logo 3D Liquid Chrome</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DESPLEGABLE 02: Estilo Visual, Personalidad & Look & Feel -->
+                        <div class="brief-accordion-item" id="briefAccordion2">
+                            <div class="brief-accordion-header" onclick="toggleAccordion('briefAccordion2')">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-num-badge">02</span>
+                                    <div>
+                                        <div class="accordion-step-tag">PASO 02 // DIRECCIÓN ARTÍSTICA</div>
+                                        <div class="accordion-title-row">
+                                            <h3 class="accordion-title">Estilo Visual, Look & Feel y Colores</h3>
+                                            <span class="accordion-live-pill" id="badgeStep2">Futurista • Eléctrico STREAK</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-header-right">
+                                    <span class="accordion-toggle-label">Opciones a marcar</span>
+                                    <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+                                </div>
+                            </div>
+
+                            <div class="brief-accordion-body">
+                                <div class="accordion-inner-content">
+                                    <div class="form-label-streak" id="vibeTitleLabel" style="margin-bottom: 0.5rem;">
+                                        Personalidad / Vibra de la Marca a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="vibeChips">
+                                        <div class="chip-option chip-vibe active" data-value="Futurista / Cyberpunk / Tech">
+                                            <i class="fa-solid fa-microchip chip-icon"></i>
+                                            <span class="chip-label">Futurista / Cyberpunk</span>
+                                        </div>
+                                        <div class="chip-option chip-vibe" data-value="Minimalista / High-End de Lujo">
+                                            <i class="fa-solid fa-gem chip-icon"></i>
+                                            <span class="chip-label">Minimalista / Lujo</span>
+                                        </div>
+                                        <div class="chip-option chip-vibe" data-value="Brutalista / Y2K Liquid Chrome">
+                                            <i class="fa-solid fa-cubes-stacked chip-icon"></i>
+                                            <span class="chip-label">Brutalista / Y2K Chrome</span>
+                                        </div>
+                                        <div class="chip-option chip-vibe" data-value="Streetwear / Underground / Dark">
+                                            <i class="fa-solid fa-skull chip-icon"></i>
+                                            <span class="chip-label">Streetwear / Underground</span>
+                                        </div>
+                                        <div class="chip-option chip-vibe" data-value="Cinematográfico & Épico">
+                                            <i class="fa-solid fa-clapperboard chip-icon"></i>
+                                            <span class="chip-label">Cinematográfico & Épico</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" id="colorTitleLabel" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+                                        Paleta Cromática Preferida a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="colorChips">
+                                        <div class="chip-option chip-color active" data-value="Eléctrico STREAK (Azul Rey & Cyan Glow)">
+                                            <i class="fa-solid fa-circle" style="color: #0066FF;"></i>
+                                            <span class="chip-label">Eléctrico STREAK (Azul / Cyan)</span>
+                                        </div>
+                                        <div class="chip-option chip-color" data-value="Monocromático (Negro Obsidiana, Blanco Puro & Plata)">
+                                            <i class="fa-solid fa-circle" style="color: #E2E8F0;"></i>
+                                            <span class="chip-label">Monocromo (Negro & Blanco)</span>
+                                        </div>
+                                        <div class="chip-option chip-color" data-value="Cromo Líquido Reflectivo & Titanio">
+                                            <i class="fa-solid fa-circle" style="color: #94A3B8;"></i>
+                                            <span class="chip-label">Cromo Líquido & Titanio</span>
+                                        </div>
+                                        <div class="chip-option chip-color" data-value="Neón / Ultravioleta & Gradientes">
+                                            <i class="fa-solid fa-circle" style="color: #00D2FF;"></i>
+                                            <span class="chip-label">Neón / Ultravioleta</span>
+                                        </div>
+                                        <div class="chip-option chip-color" data-value="Criterio Creativo Libre (STREAK Decide)">
+                                            <i class="fa-solid fa-wand-sparkles chip-icon"></i>
+                                            <span class="chip-label">Criterio Libre STREAK</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" id="typographyTitleLabel" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+                                        Estilo Tipográfico / Símbolo a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="typographyChips">
+                                        <div class="chip-option chip-typography active" data-value="Tipografía 3D Monumental">
+                                            <i class="fa-solid fa-cube chip-icon"></i>
+                                            <span class="chip-label">Tipografía 3D Monumental</span>
+                                        </div>
+                                        <div class="chip-option chip-typography" data-value="Monograma / Iniciales Emblemáticas">
+                                            <i class="fa-solid fa-font chip-icon"></i>
+                                            <span class="chip-label">Monograma / Iniciales</span>
+                                        </div>
+                                        <div class="chip-option chip-typography" data-value="Isotipo Geométrico / Símbolo Abstracto">
+                                            <i class="fa-solid fa-shapes chip-icon"></i>
+                                            <span class="chip-label">Símbolo Abstracto</span>
+                                        </div>
+                                        <div class="chip-option chip-typography" data-value="Wordmark Minimalista Sans-Serif">
+                                            <i class="fa-solid fa-lines-leaning chip-icon"></i>
+                                            <span class="chip-label">Wordmark Sans-Serif</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-streak" style="margin-top: 1.25rem;">
+                                        <label class="form-label-streak" id="exclusionsTitleLabel" for="briefExclusions">
+                                            ¿Qué NO debe tener? (Elementos, clichés o colores a evitar)
+                                        </label>
+                                        <textarea id="briefExclusions" class="form-input-streak" rows="2" placeholder="Ej: No usar notas musicales genéricas, no tipografías cursivas comunes, evitar tonos pasteles..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DESPLEGABLE 03: Aplicaciones & Audiencia -->
+                        <div class="brief-accordion-item" id="briefAccordion3">
+                            <div class="brief-accordion-header" onclick="toggleAccordion('briefAccordion3')">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-num-badge">03</span>
+                                    <div>
+                                        <div class="accordion-step-tag" id="step3Tag">PASO 03 // SOPORTES & AUDIENCIA</div>
+                                        <div class="accordion-title-row">
+                                            <h3 class="accordion-title" id="step3Title">Aplicaciones Clave del Logo & Público</h3>
+                                            <span class="accordion-live-pill" id="badgeStep3">4 Aplicaciones • Gen Z</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-header-right">
+                                    <span class="accordion-toggle-label">Opciones a marcar</span>
+                                    <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+                                </div>
+                            </div>
+
+                            <div class="brief-accordion-body">
+                                <div class="accordion-inner-content">
+                                    <div class="form-label-streak" id="applicationTitleLabel" style="margin-bottom: 0.5rem;">
+                                        ¿Dónde vivirá principalmente el Logo? (Multi-selección a marcar):
+                                    </div>
+                                    <div class="option-chips-container" id="applicationChips">
+                                        <div class="chip-option chip-application active" data-value="Pantallas Gigantes LED / Festivales">
+                                            <i class="fa-solid fa-tv chip-icon"></i>
+                                            <span class="chip-label">Pantallas LED Festivales</span>
+                                        </div>
+                                        <div class="chip-option chip-application active" data-value="Portadas Oficiales de Álbumes (Spotify / Apple)">
+                                            <i class="fa-solid fa-compact-disc chip-icon"></i>
+                                            <span class="chip-label">Portadas de Álbum (Spotify)</span>
+                                        </div>
+                                        <div class="chip-option chip-application active" data-value="Ropa, Merch & Streetwear">
+                                            <i class="fa-solid fa-shirt chip-icon"></i>
+                                            <span class="chip-label">Merch & Streetwear</span>
+                                        </div>
+                                        <div class="chip-option chip-application active" data-value="Redes Sociales & Avatares 4K">
+                                            <i class="fa-solid fa-mobile-screen chip-icon"></i>
+                                            <span class="chip-label">Redes Sociales & Avatares</span>
+                                        </div>
+                                        <div class="chip-option chip-application" data-value="Merchandising & Packaging Físico">
+                                            <i class="fa-solid fa-box-open chip-icon"></i>
+                                            <span class="chip-label">Packaging & Merch Físico</span>
+                                        </div>
+                                        <div class="chip-option chip-application" data-value="Intro Cinematográfica / Motion 3D">
+                                            <i class="fa-solid fa-video chip-icon"></i>
+                                            <span class="chip-label">Intro Animada 3D</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" id="audienceTitleLabel" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+                                        Público Objetivo / Audiencia a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="audienceChips">
+                                        <div class="chip-option chip-audience active" data-value="Gen Z & Juventud Urbana Global">
+                                            <i class="fa-solid fa-users chip-icon"></i>
+                                            <span class="chip-label">Gen Z & Audiencia Urbana</span>
+                                        </div>
+                                        <div class="chip-option chip-audience" data-value="Fans de Música & Clubbers Internacionales">
+                                            <i class="fa-solid fa-headphones chip-icon"></i>
+                                            <span class="chip-label">Fans de Música & Clubbers</span>
+                                        </div>
+                                        <div class="chip-option chip-audience" data-value="Consumidores High-End & Moda Streetwear">
+                                            <i class="fa-solid fa-bag-shopping chip-icon"></i>
+                                            <span class="chip-label">Consumidores High-End</span>
+                                        </div>
+                                        <div class="chip-option chip-audience" data-value="Ejecutivos de Sellos & Marcas Globales">
+                                            <i class="fa-solid fa-briefcase chip-icon"></i>
+                                            <span class="chip-label">Sellos & Ejecutivos</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-streak" style="margin-top: 1.25rem;">
+                                        <label class="form-label-streak" id="refsTitleLabel" for="briefRefsLink">
+                                            Enlace a Referencias / Moodboard (Pinterest / Drive / Dropbox / Behance)
+                                        </label>
+                                        <input type="url" id="briefRefsLink" class="form-input-streak" placeholder="https://drive.google.com/... o https://pinterest.com/..." value="https://pinterest.com/moodboard-khali" oninput="updateLiveSummary()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DESPLEGABLE 04: Cronograma, Presupuesto (CLP) & Contacto -->
+                        <div class="brief-accordion-item" id="briefAccordion4">
+                            <div class="brief-accordion-header" onclick="toggleAccordion('briefAccordion4')">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-num-badge">04</span>
+                                    <div>
+                                        <div class="accordion-step-tag">PASO 04 // PRODUCCIÓN & CONTACTO</div>
+                                        <div class="accordion-title-row">
+                                            <h3 class="accordion-title">Plazos, Presupuesto (CLP) & Contacto</h3>
+                                            <span class="accordion-live-pill" id="badgeStep4">1 a 2 Semanas • $1.000.000 - $2.500.000 CLP</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-header-right">
+                                    <span class="accordion-toggle-label">Opciones a marcar</span>
+                                    <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+                                </div>
+                            </div>
+
+                            <div class="brief-accordion-body">
+                                <div class="accordion-inner-content">
+                                    <div class="form-label-streak" style="margin-bottom: 0.5rem;">
+                                        Plazo de Entrega Deseado a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="deadlineChips">
+                                        <div class="chip-option chip-deadline" data-value="Fast-Track Táctico (3 a 5 Días Laborales)">
+                                            <i class="fa-solid fa-bolt chip-icon" style="color: var(--streak-cyan);"></i>
+                                            <span class="chip-label">Fast-Track (3 a 5 Días)</span>
+                                        </div>
+                                        <div class="chip-option chip-deadline active" data-value="Estándar Curado (1 a 2 Semanas)">
+                                            <i class="fa-solid fa-calendar-check chip-icon"></i>
+                                            <span class="chip-label">Estándar (1 a 2 Semanas)</span>
+                                        </div>
+                                        <div class="chip-option chip-deadline" data-value="Cronograma Flexible / Por Fases">
+                                            <i class="fa-solid fa-timeline chip-icon"></i>
+                                            <span class="chip-label">Flexible / Por Fases</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-label-streak" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+                                        Rango Presupuestario en Pesos Chilenos (CLP) a Marcar:
+                                    </div>
+                                    <div class="option-chips-container" id="budgetChips">
+                                        <div class="chip-option chip-budget" data-value="$500.000 - $1.000.000 CLP (Logotipo Esencial)">
+                                            <span class="chip-label">$500.000 - $1.000.000 CLP</span>
+                                        </div>
+                                        <div class="chip-option chip-budget active" data-value="$1.000.000 - $2.500.000 CLP (Identidad + Render 3D Chrome)">
+                                            <span class="chip-label">$1.000.000 - $2.500.000 CLP (Recomendado)</span>
+                                        </div>
+                                        <div class="chip-option chip-budget" data-value="$2.500.000 - $5.000.000 CLP (Branding Completo + Manual)">
+                                            <span class="chip-label">$2.500.000 - $5.000.000 CLP</span>
+                                        </div>
+                                        <div class="chip-option chip-budget" data-value="+$5.000.000 CLP (Sistema Monumental 360°)">
+                                            <span class="chip-label">+$5.000.000 CLP (Monumental)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-streak" style="margin-top: 1.25rem; margin-bottom: 0.85rem;">
+                                        <label class="form-label-streak" id="contactNameTitleLabel" for="briefContactName">
+                                            Nombre del Responsable / Manager <span style="color: var(--streak-cyan);">*</span>
+                                        </label>
+                                        <input type="text" id="briefContactName" class="form-input-streak" placeholder="Tu Nombre / Cargo" value="Carlos Valenzuela (Manager)" required oninput="updateLiveSummary()">
+                                    </div>
+
+                                    <div class="form-row-2">
+                                        <div class="form-group-streak">
+                                            <label class="form-label-streak" for="briefContactEmail">
+                                                Email Notificaciones <span style="color: var(--streak-cyan);">*</span>
+                                            </label>
+                                            <input type="email" id="briefContactEmail" class="form-input-streak" placeholder="contacto@label.com" value="manager@khalimusic.com" required oninput="updateLiveSummary()">
+                                        </div>
+                                        <div class="form-group-streak">
+                                            <label class="form-label-streak" for="briefContactPhone">
+                                                Teléfono / WhatsApp <span style="color: var(--streak-cyan);">*</span>
+                                            </label>
+                                            <input type="tel" id="briefContactPhone" class="form-input-streak" placeholder="+56 9 8765 4321" value="+56 9 8765 4321" required oninput="updateLiveSummary()">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-streak" style="margin-top: 0.85rem;">
+                                        <label class="form-label-streak" id="notesTitleLabel" for="briefNotes">
+                                            Instrucciones Específicas para Producción
+                                        </label>
+                                        <textarea id="briefNotes" class="form-input-streak" rows="2" placeholder="Detalles de lanzamiento, historia del artista o requerimientos específicos para Javier Garcés y STREAK..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Live Executive Summary & Action Dock -->
+                    <div class="brief-summary-dock">
+                        <div class="summary-telemetry-col">
+                            <div class="summary-meta-code">
+                                <i class="fa-solid fa-file-lines" style="color: var(--streak-cyan);"></i>
+                                <span>STREAK CREATIVE BRIEF //</span>
+                                <strong id="liveBriefCode">STRK-BRND-2026-9842</strong>
+                            </div>
+                            <div class="summary-brand-title">
+                                <span id="liveBriefTitle">KHALI MUSIC</span>
+                                <span class="summary-tagline-badge" id="liveBriefTagline">World Tour & Records</span>
+                            </div>
+                            <div class="summary-specs-chips">
+                                <span class="spec-pill" id="liveBriefSector">Música Urbana / Trap</span>
+                                <span class="spec-pill" id="liveBriefDeliverable">Nuevo Logotipo + Isotipo</span>
+                                <span class="spec-pill" id="liveBriefVibe">Futurista / Cyberpunk</span>
+                                <span class="spec-pill highlight" id="liveBriefDeadline">1 a 2 Semanas</span>
+                                <span class="spec-pill highlight" id="liveBriefBudget">$1.000.000 - $2.500.000 CLP</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-actions-col">
+                            <button type="submit" class="btn-streak-primary btn-generate-pdf" id="btnSubmitBrief">
+                                <i class="fa-solid fa-file-pdf"></i> Generar Brief Oficial & Descargar PDF
+                            </button>
+                            <div style="display: flex; gap: 0.5rem; width: 100%;">
+                                <button type="button" class="btn-streak-ghost" onclick="triggerEmailSend()" style="flex: 1; font-size: 0.78rem; padding: 0.65rem 0.85rem; justify-content: center;">
+                                    <i class="fa-solid fa-envelope"></i> Enviar al Correo
+                                </button>
+                                <button type="button" class="btn-streak-ghost" onclick="triggerWhatsAppSend()" style="flex: 1; font-size: 0.78rem; padding: 0.65rem 0.85rem; justify-content: center; color: #25D366; border-color: rgba(37, 211, 102, 0.4);">
+                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div><!-- End Streak Container -->
+
+    <!-- ==========================================
+         FOOTER INSTITUCIONAL
+         ========================================== -->
+    <footer class="streak-footer">
+        <div class="streak-container">
+            <div class="footer-top-grid">
+                <div class="footer-brand-col">
+                    <img src="assets/streak-logo.svg" alt="STREAK Logo" id="streakFooterLogoImg" style="height: 42px;">
+                    <p>
+                        Productora audiovisual cinematográfica y estudio de diseño gráfico. Creando la estética visual que lidera las carteleras de la música internacional.
+                    </p>
+                    <div style="margin-top: 1.25rem;">
+                        <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="streak-ig-nav-btn">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>Seguir @studio_streak</span>
+                            <span class="ig-pulse-dot"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="footer-col-title">Productora Cine</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="#manifiesto">Videoclips Oficiales 4K</a></li>
+                        <li><a href="#reservas">Matrimonios & Bodas de Lujo 4K</a></li>
+                        <li><a href="#capacidades">Sistemas ARRI & RED Digital Cinema</a></li>
+                        <li><a href="#capacidades">Drones FPV & Cobertura Giras</a></li>
+                        <li><a href="#reservas">Reserva de Sets & Rodajes</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="footer-col-title">Estudio de Diseño Gráfico</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="#diseno">Briefing Brand & Logotipo (PDF)</a></li>
+                        <li><a href="#diseno">Liquid Chrome & CGI 3D</a></li>
+                        <li><a href="#diseno">Manual de Identidad & Brandbook</a></li>
+                        <li><a href="#diseno">Cover Art & Key Art de Gira</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="footer-col-title">Contacto Directo</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" style="color: var(--streak-blue); font-weight: 700;"><i class="fa-brands fa-instagram"></i> @studio_streak (Instagram)</a></li>
+                        <li><strong style="color: var(--text-pure);">Email:</strong> contact@streakmotion.com</li>
+                        <li><strong style="color: var(--text-pure);">Base:</strong> Santiago, Chile / Operaciones Globales</li>
+                        <li><strong style="color: var(--text-pure);">Dirección de Arte:</strong> Javier Garcés</li>
+                        <li><a href="https://wa.me/" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i> Chat de Producción</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <div>
+                    © 2026 STREAK STUDIOS. Todos los derechos reservados.
+                </div>
+                <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                    <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" style="color: var(--streak-blue); text-decoration: none;">
+                        <i class="fa-brands fa-instagram"></i> @studio_streak
+                    </a>
+                    <span>•</span>
+                    <span>Producción Audiovisual</span>
+                    <span>•</span>
+                    <span>Estudio de Diseño Gráfico</span>
+                    <span>•</span>
+                    <span>Dirección Creativa</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Quick-Access Instagram Widget -->
+    <a href="https://www.instagram.com/studio_streak/" target="_blank" rel="noopener noreferrer" class="streak-ig-floating-widget" title="Visitar Instagram Oficial @studio_streak">
+        <i class="fa-brands fa-instagram"></i>
+        <span>@studio_streak</span>
+        <span class="ig-pulse-dot" title="En Directo"></span>
+    </a>
+
+    <!-- ==========================================
+         MODAL DE CONFIRMACIÓN DE BRIEF & PDF DESCARGADO
+         ========================================== -->
+    <div id="streakBriefSuccessModal" class="brief-modal-backdrop" onclick="handleBriefModalClick(event)">
+        <div class="brief-modal-dialog">
+            <div class="brief-modal-glow"></div>
+            
+            <button class="brief-modal-close" onclick="closeBriefModal()" aria-label="Cerrar modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="brief-modal-icon-ring">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <div class="brief-modal-meta-tag">
+                <span class="status-pulse-dot"></span>
+                <span>STATUS: BRIEF COMPILADO & DESCARGADO</span>
+            </div>
+
+            <h3 class="brief-modal-title">¡Brief Generado Exitosamente!</h3>
+            <p class="brief-modal-desc">
+                El documento PDF ejecutivo oficial <strong id="modalPdfFileName" style="color: var(--streak-cyan);">STREAK_BRIEF_KHALI_MUSIC.pdf</strong> se ha descargado a tu equipo y está listo para ser revisado por la dirección creativa y dar inicio a la fase de producción.
+            </p>
+
+            <div class="brief-modal-summary-card">
+                <div class="modal-summary-row">
+                    <span class="label">Código de Brief:</span>
+                    <strong id="modalTrackingCode" class="val" style="color: var(--streak-cyan);">STRK-BRND-2026-9842</strong>
+                </div>
+                <div class="modal-summary-row">
+                    <span class="label">Proyecto / Marca:</span>
+                    <strong id="modalProjectName" class="val">KHALI MUSIC</strong>
+                </div>
+                <div class="modal-summary-row">
+                    <span class="label">Entregable:</span>
+                    <span id="modalDeliverable" class="val">Nuevo Logotipo + Isotipo</span>
+                </div>
+                <div class="modal-summary-row">
+                    <span class="label">Cronograma / Plazo:</span>
+                    <span id="modalDeadline" class="val">Estándar (1 a 2 Semanas)</span>
+                </div>
+                <div class="modal-summary-row">
+                    <span class="label">Responsable:</span>
+                    <span id="modalContact" class="val">Carlos Valenzuela</span>
+                </div>
+            </div>
+
+            <div class="brief-modal-actions">
+                <button class="btn-streak-primary" onclick="triggerEmailSend()" style="width: 100%; justify-content: center; padding: 0.85rem;">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar Brief por Correo a contact@streakmotion.com
+                </button>
+                
+                <div style="display: flex; gap: 0.65rem; width: 100%;">
+                    <button class="btn-streak-ghost" onclick="reDownloadPdf()" style="flex: 1; justify-content: center; font-size: 0.8rem;">
+                        <i class="fa-solid fa-download"></i> Descargar PDF de Nuevo
+                    </button>
+                    <button class="btn-streak-ghost" onclick="triggerWhatsAppSend()" style="flex: 1; justify-content: center; font-size: 0.8rem; color: #25D366; border-color: rgba(37, 211, 102, 0.4);">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp Producción
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jsPDF Engine -->
+    <script src="assets/jspdf.umd.min.js"></script>
+
+    <!-- STREAK Logic -->
+    <script src="main.js"></script>
+</body>
+</html>
